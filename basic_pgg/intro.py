@@ -62,8 +62,13 @@ print("Ala " + "ma kota") # konkatenacja
 print("Ala" + str(10)) # str(10) przerabia typ int na str
 print("-" * 30)
 
+print()
 
 
+if True:
+      x = 2
+
+print(x)
 
 
 
