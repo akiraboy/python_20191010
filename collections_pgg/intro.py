@@ -124,3 +124,51 @@ print()
 
 for wartosc in range(0, 11, 2):
     print(wartosc, end=" ")
+
+print()
+
+a = [1, 10, 5, 9, 3, 4, 2, 11]
+print(a)
+a.sort()
+print(a)
+
+b = ['z', 'c', 'a', 'o', 'ą']
+print(b)
+b.sort() # sortowanie jak w encyklopedii, ale uwaga na polskie znaki
+print(b)
+
+
+# NAPISY
+
+napis = "Ala ma kota a kot ma kompilator"
+
+print(napis[0]) # napisy indeksujemy od 0
+print(napis[1:])
+print(napis[1:3])
+print(napis[:-1])
+print(napis[::2])
+print(napis[::-1])
+
+a = "Kamil ślimak"
+a = a.lower().replace(" ", "")
+print(a[:])
+print(a[::-1])
+print( a[:] == a[::-1] ) # sprawdzenie czy ciag znakow jest palindromem
+
+print(napis.lower())
+print(napis.upper())
+print(napis.title())
+print(napis.capitalize())
+
+print(napis.split(' '))
+print(napis.split()) # domyślnie dzieli po spacji
+print(list(napis))
+print( [c for c in napis] ) # list comprehension
+
+print(len(napis))
+print(napis.count('a'))
+print(napis.index('a'))
+print(napis.find('a'))
+
+# print(napis.index('z')) # jak nie znajdzie znaku, to rzuca wyjatkiem
+print(napis.find('z')) # jak nie znajdzie to daje -1
