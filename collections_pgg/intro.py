@@ -344,3 +344,86 @@ a.symmetric_difference_update(b)
 
 print(a)
 print(b)
+
+pusty_zbior = set()
+
+#####################
+# WYRAŻENIA LISTOWE #
+#####################
+# https://realpython.com/lessons/generalized-list-comprehension-structure/
+# wyrażenia listowe (list comprehension) - []
+# wyrażenia zbiorowe (set comprehension) - {}
+# wyrażenia słownikowe (dict comprehension) - { x:y }
+# nie ma wyrażeń tuplowych, bo ( ) będzie tzw. generatorem
+
+dane = [10,20,30,40,50,60,70,80,90,100]
+print(dane)
+
+# chce zrobić listę, gdzie elementy są kwadratami tych danych
+wynik = []
+for wartosc in dane:
+    wynik.append(wartosc ** 2)
+
+print(wynik)
+
+wynik = [ wartosc ** 2 for wartosc in dane ]
+print(wynik)
+
+"""
+Jak odczytac wyrazenia listowe:
+(values) = [ (expression) for (value) in (collection) if (condition) ]
+
+(values) = []
+for (value) in (collection):
+    if (condition):
+        (values).append( (expression) )
+"""
+
+# pensje brutto
+pensje = [1000, 2000, 2500, 1500, 5000]
+
+# potrzebuje mieć listę kwot do wypłaty pracownikom
+# potrzebuję pensje netto, podatek dochodowy to 19%
+do_wyplaty = []
+for pensja in pensje:
+    do_wyplaty.append( round(pensja * 0.81, 2) )
+
+do_wyplaty = [ round(pensja * 0.81, 2) for pensja in pensje ]
+
+print(do_wyplaty)
+
+# Premie - jeżeli pensja (brutto) <= 2000 to wtedy 10% premii, w przeciwnym przypadku 0
+premie = []
+for pensja in pensje:
+    if pensja <= 2000:
+        premie.append(0.1)
+    else:
+        premie.append(0.0)
+
+#          |    expression              |
+premie = [ 0.1 if pensja <= 2000 else 0.0 for pensja in pensje ]
+
+print(premie)
+
+# https://docs.python.org/3.3/library/functions.html#zip
+print(do_wyplaty)
+print(premie)
+print(list( zip(do_wyplaty, premie) ))
+print(list( zip([1,2,3], [1,2]) ))
+
+wartosc_premii = [ pensja * premia for pensja, premia in zip(do_wyplaty, premie) ]
+print(wartosc_premii)
+
+do_wyplaty_z_premia = [ pensja + premia for pensja, premia in zip(do_wyplaty, wartosc_premii)]
+print(do_wyplaty_z_premia)
+
+# chcemy wiedzieć, kto dostanie więcej niż 2000 zł wypłaty
+najdrozsi = [ pensja for pensja in do_wyplaty_z_premia if pensja > 2000 ]
+print(najdrozsi)
+
+
+liczby = [10,20,30,40,50,60,70,80,90,100]
+generator_liczb = (x for x in liczby) # to nie jest tupla, to jest generator
+
+for liczba in generator_liczb:
+    print(liczba)
