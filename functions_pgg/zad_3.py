@@ -9,6 +9,9 @@ policz_znaki('a <a<a<a>>>')
 """
 
 def policz_znaki(napis:str, start='<', end='>'):
+    if napis.count(start) != napis.count(end):
+        raise ValueError('Liczba nawiasow start jest rozna niz end')
+
     poziom = 0
     liczba_znakow = 0
 
@@ -24,10 +27,27 @@ def policz_znaki(napis:str, start='<', end='>'):
     return liczba_znakow
 
 
+def test_wartosci_z_opisu_zadania():
+    assert policz_znaki('ala ma <kota> a kot ma ale') == 4
+    assert policz_znaki('ala [kota [a kot]] ma [ale]', '[', ']') == 18
+    assert policz_znaki('a <a<a<a>>>') == 6
 
 
+def test_pusty_napis():
+    assert policz_znaki('') == 0
+
+def test_pusty_napis2():
+    assert policz_znaki(start='{', end='}', napis='') == 0
+
+def test_bez_nawiasow():
+    assert policz_znaki('ala ma kota') == 0
 
 
+import pytest
+
+def test_zla_liczba_nawiasow():
+    with pytest.raises(ValueError):
+        policz_znaki('asd<<a>')
 
 
 
