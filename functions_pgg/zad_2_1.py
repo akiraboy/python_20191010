@@ -13,18 +13,10 @@ def wiecej_niz(napis:str, ile_znakow:int) -> set:
     :return:
     """
 
-    napis = napis.lower()
-    zliczone_litery = {}
-    for znak in napis:
-        if znak in zliczone_litery:
-            zliczone_litery[znak] += 1
-        else:
-            zliczone_litery[znak] = 1
-
     wynik = set()
-    for litera in zliczone_litery:
-        if zliczone_litery[litera] > ile_znakow:
-            wynik.add(litera)
+    for znak in napis.lower():
+        if napis.lower().count(znak) > ile_znakow:
+            wynik.add(znak)
 
     return wynik
 
