@@ -42,4 +42,40 @@ print(iloczyn(2,5))
 # PyCharm podpowiada, że typy nam się nie zgadzają
 # niemniej, to nie jest przeszkoda, żeby uruchomić program
 # print(iloczyn('a', 'b'))
+print()
+print()
+
+# zasięg zmiennych i funkcjach zagniezdzonych
+
+a = 10
+def zewnetrzna():
+
+    def wewnetrzna(): # wewnatrz funkcji zewnetrzna mam do dyspozycji funkcje wewnetrzna
+        print(f"Ala ma kota, a={a}")
+        return 5
+
+    wynik = wewnetrzna()
+    print(f'Wynik funkcji wewnetrzna = {wynik}')
+
+
+zewnetrzna()
+
+# argumenty domyślne
+def opakowywacz(napis, start=">>", end="<<", dopisek=""):
+    return start + napis + end + dopisek
+
+print(opakowywacz("Ala ma kota"))
+print(opakowywacz("Ala ma kota", "[", ']'))
+print(opakowywacz("Ala ma kota", "["))
+print(opakowywacz("Ala ma kota", end="{{", dopisek="!"))
+print(opakowywacz(start="}}", dopisek="!", napis="Ala ma kota")) # jak nie zaczynam od argumentu pozycyjnego, to go trzeba wymienić z nazwy
+
+
+
+
+
+
+
+
+
 
