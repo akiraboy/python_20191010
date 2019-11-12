@@ -51,6 +51,23 @@ def test_czy_jest_pierwsza3():
     assert czy_jest_pierwsza(5) is True
     assert czy_jest_pierwsza(7) == True
 
+def test_argumenty_pozytywne():
+    assert czy_jest_pierwsza(2)
+    assert czy_jest_pierwsza(3)
+    assert czy_jest_pierwsza(5)
+    assert czy_jest_pierwsza(7)
+    assert czy_jest_pierwsza(97)
 
+def test_argumenty_negatywne():
+    # assert not czy_jest_pierwsza(-1)
+    # assert not czy_jest_pierwsza(0)
+    # assert not czy_jest_pierwsza(1)
+    # assert not czy_jest_pierwsza(4)
+    # assert not czy_jest_pierwsza(12)
+    # assert not czy_jest_pierwsza(15)
+    # assert not czy_jest_pierwsza(27)
+    # assert not czy_jest_pierwsza(51)
 
-
+    wartosci = [-1, 0, 1, 4, 12, 15, 27, 51]
+    for wartosc in wartosci:
+        assert not czy_jest_pierwsza(wartosc)
