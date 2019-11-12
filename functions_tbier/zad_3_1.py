@@ -13,9 +13,52 @@ podpowiedź: wartość PI jest dostępna jako `Math.PI`
 
 Dla wybranych napisz też interaktywne programy, które pytają użytkownika o dane i wypisują wynik.
 '''
+from math import pi
+from math import sqrt
 
+def stopy_na_metry(n:int):
+    '''
+    Przelicza stopy na metry.
+    :param n:
+    :return:
+    '''
+    return n * 3.28
 
-ilosc = int(input('Podaj '))
+def max(a:int, b:int):
+    if a > b:
+        return a
+    elif a < b:
+        return b
 
-def stopy_na_metry(n):
-    return n *
+def srednia(a:int, b:int):
+    return (a + b) / 2
+
+def pole_kola(r):
+    return (pi * r) ** 2
+
+def bmi(wzrost:int, waga:int):
+    return wzrost / (waga ** 2)
+
+def pole_trojkata(a:int, b:int, c:int):
+    '''
+    Liczy pole trojkąta ze wzoru herona
+    :param a:
+    :param b:
+    :param c:
+    :return:
+    '''
+    p = (a + b + c) / 2
+    pole = p * sqrt((p - a) * (p - b) * (p - c))
+    return pole
+
+def kilometry_na_mile(kilometry):
+    return kilometry / 1.6
+
+def mile_na_kilometry(mile):
+    return mile * 1.6
+
+a = int(input('Poodaj długosc: '))
+b = int(input('Poodaj szerokosc: '))
+c = int(input('Poodaj wysokosc: '))
+
+print(f'Pole trójkąta wynosi: {pole_trojkata(a, b, c):.2f}')
