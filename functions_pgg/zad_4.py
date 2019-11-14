@@ -22,6 +22,7 @@ def formatuj(*args, **kwargs):
 
     return '\n'.join(wynik)
 
+
 def testy_zbiorcze():
     assert formatuj('Hello world!') == 'Hello world!'
     assert formatuj('Hello world!', 'Ala ma kota') == 'Hello world!\nAla ma kota'
