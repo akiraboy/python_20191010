@@ -15,4 +15,16 @@ Przygotuj funkcję, która będzie przyjmowała listę liczb i na tej podstawie 
 - `znajdz_wspolny(liczby1, liczby2)` – zwraca element (liczbę), który występuje zarówno w liście `liczby1`, jak i `liczby2`; zwraca `None`, jeśli takiego elementu nie ma
 '''
 
-liczby = map()
+x = list(map(int, input("Podaj liczby oddzielone spacja: ").split())) 
+
+def suma(n):   
+    return sum(n)
+  
+print(suma(x))
+
+def srednia(n):
+    a = sum(n)
+    b = len(n)
+    return a / b
+    
+print(srednia(x))
