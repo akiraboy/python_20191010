@@ -98,3 +98,58 @@ def fun(a, b, c=10, *args, **kwargs):
 # fun(1,2,3,4,5,6,7,8,9,10,a=11,b=12,c=13) # nie możemy przekazać kilku wartości dla tego samego argumentu
 fun(1,2,3,4,5,6,7,8,9,10,x=11,y=12,z=13)
 fun(1,2,x=11,y=12,z=13)
+
+
+# FUNKCJE LAMBDA (lambda functions)
+# https://pl.wikipedia.org/wiki/Rachunek_lambda
+# https://pl.wikipedia.org/wiki/Funkcja_anonimowa
+# określenia: funkcja lambda, funkcja anonimowa
+# funkcja anonimowa: funkcja bez nazwy
+# funkcja lambda: jest używana jako dane
+
+def kwadrat(x):
+    return x ** 2
+
+print(kwadrat(3))
+
+kwadrat2 = lambda x: x ** 2
+print(kwadrat2(3))
+square = kwadrat2
+print(square(3))
+
+
+def sumator(a,b,c):
+    return a+b+c
+
+print(sumator(1,2,3))
+
+sumator2 = lambda a,b,c: a+b+c
+print(type(sumator))
+print(type(sumator2))
+print(sumator2(1,2,3))
+
+
+def x_mniejsze_y(x,y):
+    if x<y:
+        return True
+    else:
+        return False
+
+print(x_mniejsze_y(1,2))
+
+
+x_mniejsze_y = lambda x,y: x<y
+print(x_mniejsze_y(1,2))
+
+witaj_swiecie = lambda: "Hello World!"
+print(witaj_swiecie())
+
+lista = [1,2,3,4,5,6,7,8,9,10]
+
+mapa = map(lambda x: x*10, lista)
+
+# for i in mapa:
+#     print(i)
+
+lista_przemnozona = list(mapa)
+print(lista_przemnozona)
