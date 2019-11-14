@@ -22,3 +22,11 @@ def formatuj(*args, **kwargs):
 
     return '\n'.join(wynik)
 
+# formatuj('Hello world!') == 'Hello world!'
+# formatuj('Hello world!', 'Ala ma kota') == 'Hello world!\nAla ma kota'
+# formatuj('Hello world!', imie='Ala') == 'Hello world!'
+# formatuj('Hello $imie!', imie='Ala') == 'Hello Ala!'
+# formatuj('Hello $imie, $nazwisko!', imie='Ala') == 'Hello Ala, $nazwisko!'
+# formatuj('Hello $imie, $nazwisko!', imie='Ala', nazwisko='Kowalski')
+# == 'Hello Ala, Kowalski!'
+
