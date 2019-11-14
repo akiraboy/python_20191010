@@ -17,7 +17,7 @@ Przygotuj funkcję, która będzie przyjmowała listę liczb i na tej podstawie 
 
 x = list(map(int, input("Podaj liczby oddzielone spacja: ").split())) 
 
-def suma(n):   
+def suma(n:list):
     return sum(n)
   
 print(suma(x))
@@ -28,3 +28,12 @@ def srednia(n):
     return a / b
     
 print(srednia(x))
+
+def max(x):
+    return max(x)
+
+def roznica_min_max(x:list):
+    if len(x) != 0:
+        return max(x) - min(x)
+    else:
+        return 0
