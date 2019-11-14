@@ -69,13 +69,32 @@ print(opakowywacz("Ala ma kota", "[", ']'))
 print(opakowywacz("Ala ma kota", "["))
 print(opakowywacz("Ala ma kota", end="{{", dopisek="!"))
 print(opakowywacz(start="}}", dopisek="!", napis="Ala ma kota")) # jak nie zaczynam od argumentu pozycyjnego, to go trzeba wymienić z nazwy
+print()
+
+# przekazywanie wielu argumentów do funkcji
+print(1,2,'ala')
+
+# *args
+#   - możemy podać dowolnie wiele argumentów pozycyjnych
+#   - argument args jest tupla
+#   - nie ważna jest nazwa argumentu - args jest zwyczajowe, tylko istotna jest * przed nazwą tego argumentu
+# **kwargs (key-word argument)
+#   - argument kwargs jest słownikiem
+
+def zliczacz(*args, **kwargs):
+    print("*args ->", args)
+    print("**kwargs ->", kwargs)
 
 
+zliczacz()
+zliczacz(1, 2, 'ala', 3.5, ('a', 'b'))
+zliczacz(1,2,3,a=10,b=20)
+zliczacz(a=1, b=2, c=(1,2,3,4))
+# zliczacz(a=1, b=2, 'ala') # błąd kompilacji, najpierw argumenty pozycyjne, później nazwane
 
+def fun(a, b, c=10, *args, **kwargs):
+    print(a, b, c, args, kwargs)
 
-
-
-
-
-
-
+# fun(1,2,3,4,5,6,7,8,9,10,a=11,b=12,c=13) # nie możemy przekazać kilku wartości dla tego samego argumentu
+fun(1,2,3,4,5,6,7,8,9,10,x=11,y=12,z=13)
+fun(1,2,x=11,y=12,z=13)
