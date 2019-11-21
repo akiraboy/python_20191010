@@ -357,3 +357,22 @@ sumator_udekorowany1 = dekorator(sumator1)
 
 suma = sumator(5, 3)
 print(suma)
+
+
+# domknięcie / closure
+def stworz_przemnazacz(x):
+    def przemnazacz(y):
+        return x*y
+
+    return przemnazacz
+
+
+przez_5 = stworz_przemnazacz(5)
+
+print( przez_5(10) )
+
+
+
+
+
+
