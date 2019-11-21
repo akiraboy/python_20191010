@@ -6,6 +6,7 @@ product.print_info()
 Produkt "Woda", id: 1, cena: 10.99 PLN
 """
 
+
 class Product:
     def __init__(self, id, name, price):
         self.id = id

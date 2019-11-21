@@ -57,7 +57,22 @@ a = Towar()
 a.wypisz()
 
 
+print("="*60)
 
+class Towar:
+    def __init__(self, nazwa="cos", cena=2.99):
+        self.nazwa = nazwa
+        self.cena = cena
 
+    def wypisz(self):
+        print(f'Towar {self.nazwa} kosztuje {self.cena}')
 
+    def __str__(self):
+        return f'Towar {self.nazwa} kosztuje {self.cena}'
+
+a = Towar()
+print(a) # tutaj uruchamia się metoda __str__ na naszym obiekcie
+
+a_tekstowo = str(a) # tutaj uruchamia się metoda __str__ na naszym obiekcie
+print(a_tekstowo)
 
