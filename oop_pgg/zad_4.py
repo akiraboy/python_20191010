@@ -58,12 +58,19 @@ class Basket:
         return not self._items
 
     def count_total_price(self):
-        total_price = 0.0
+        # total_price = 0.0
+        # for product, quantity in self._items.items():
+        #     total_price += product.price * quantity
+        #
+        # return total_price
+
+        return sum( [ product.price * quantity for product, quantity in self._items.items() ] )
+
+    def generate_report(self):
+        print("Produkty w koszyku:")
         for product, quantity in self._items.items():
-            total_price += product.price * quantity
-
-        return total_price
-
+            print(f'{product.name} ({product.id}), cena: {product.price:.2f} x {quantity}')
+        print(f'W sumie: {self.count_total_price():.2f}')
 
 def test_pusty_koszyk():
     koszyk = Basket()

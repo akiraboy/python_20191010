@@ -242,3 +242,43 @@ print(slownik['a'])
 slownik = defaultdict(lambda : 5)
 print(slownik['a'])
 
+
+print("="*60)
+# METODY SPECJALNE
+
+class Liczba:
+    def __init__(self, wartosc):
+        self.wartosc = wartosc
+
+    def __str__(self):
+        return f'Jestem liczba o wartosci {self.wartosc}'
+
+    def __add__(self, other):
+        # Obiekt klasy liczba jest niemutowalny (konwencja)
+        # Operacja dodawania dwóch obiektów albo obiektu i liczby
+        # nie powoduje zmiany stanu żadnego z obiektów, tylko dostajemy nowy obiekt
+        if isinstance(other, Liczba):
+            return Liczba(self.wartosc + other.wartosc)
+        else:
+            return Liczba(self.wartosc + other)
+
+
+l1 = Liczba(10)
+print(l1)
+
+l2 = Liczba(20)
+print(l2)
+
+l3 = l1 + l2
+# l3 = l1.__add__(l2)
+print(l3)
+
+l4 = l1 + l2 + l3
+# l4 = l3.__add__( l1.__add__(l2) )
+print(l4)
+
+l5 = l1 + 3
+print(l5)
+
+
+
