@@ -9,6 +9,8 @@ vector_1 = Vector(x=1, y=2)
 vector_2 = Vector(x=1, y=2)
 vector_3 = vector_1 + vector_2
 """
+import math
+
 
 class Vector:
     def __init__(self, x: int, y: int):
@@ -37,6 +39,30 @@ class Vector:
         if type(other) not in [int, float]:
             raise TypeError('Use int or float')
         return Vector(self.x * other, self.y * other)
+
+    # def __len__(self): # https://docs.python.org/3/reference/datamodel.html#object.__len__
+
+    @property
+    def len(self):
+        return math.sqrt(self.x ** 2 + self.y ** 2)
+
+    def __gt__(self, other): # >
+        return self.len > other.len
+
+    def __ge__(self, other): # >=
+        return self.len >= other.len
+
+    def __lt__(self, other): # <
+        return self.len < other.len
+
+    def __le__(self, other): # <=
+        return self.len <= other.len
+
+    def __eq__(self, other): # ==
+        return self.len == other.len
+
+    def __ne__(self, other): # !=
+        return self.len != other.len
 
 
 def test_dodawania():
