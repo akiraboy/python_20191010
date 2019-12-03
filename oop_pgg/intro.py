@@ -1,4 +1,5 @@
 # ===== OOP =====
+import math
 
 tupla = (1, 2, 3, 4, 5, 6)
 print( type(tupla) )
@@ -279,6 +280,79 @@ print(l4)
 
 l5 = l1 + 3
 print(l5)
+
+print("="*60)
+
+# ==== DZIEDZICZENIE =====
+
+class Osoba:
+    def __init__(self, id, imie, nazwisko):
+        self.__id = id
+        self._imie = imie
+        self._nazwisko = nazwisko
+
+    def __str__(self):
+        return f'Osoba: {self.__id} {self._imie} {self._nazwisko}'
+
+class Student(Osoba):
+    def __init__(self, id, imie, nazwisko, kierunek, rok):
+        super().__init__(id, imie, nazwisko)
+        self._kierunek = kierunek
+        self._rok = rok
+
+    def __str__(self):
+        osoba_info = super().__str__()
+        return f'Student: {self._rok}, {self._kierunek}; {osoba_info}'
+
+
+o1 = Osoba(1, 'Piotr', 'GG')
+print(o1)
+
+s1 = Student(2, 'Marek', 'Nowak', 'informatyka', 2)
+print(s1)
+
+# ===== WIELODZIEDZICZENIE ====
+# czyli dziedziczymy po kilku klasach na raz
+
+class Kolo:
+    def __init__(self, r):
+        self.r = r
+
+    def powierzchnia(self):
+        return math.pi * self.r ** 2
+
+    def obwod(self):
+        return 2 * math.pi * self.r
+
+class Prostokat:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+    def powierzchnia(self):
+        return self.a * self.b
+
+
+class Walec(Kolo, Prostokat):
+    def __init__(self, r, h):
+        Kolo.__init__(self, r)
+        Prostokat.__init__(self, self.obwod(), h)
+
+    def powierzchnia(self):
+        pole_kola = Kolo.powierzchnia(self)
+        pole_prostokata = Prostokat.powierzchnia(self)
+        return (2 * pole_kola) + pole_prostokata
+
+
+print(Walec.__mro__)
+
+w = Walec(5, 10)
+print(w.powierzchnia())
+
+
+
+
+
 
 
 
