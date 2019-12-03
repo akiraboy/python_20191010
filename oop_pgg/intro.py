@@ -350,6 +350,65 @@ w = Walec(5, 10)
 print(w.powierzchnia())
 
 
+print("="*60)
+
+# ====== WYJATKI ======
+
+def dzielenie(a, b):
+    return a/b
+
+# https://realpython.com/python-exceptions/
+
+
+
+
+try:
+    print("jestem w try")
+    dzielenie(5, 0)
+    print("po dzieleniu")
+
+except (TypeError, ZeroDivisionError): # mozemy lapac kilka rodzajow wyjatkow
+    print('TypeError, ZeroDivisionError')
+except TypeError:
+    print('TypeError')
+except ArithmeticError as error:
+    print('Arithmetic error', error.args)
+except ZeroDivisionError:
+    print("ZeroDivisionError - Nie można dzielić przez 0.")
+except BaseException:
+    print('Base Exception')
+else:
+    # uruchamia tylko wtedy, kiedy nie było wyjatku
+    print("jestem w else")
+finally:
+    # wykonuje sie zawsze, nawet jak był wyjatek
+    print("jestem w finally")
+
+
+print("="*60)
+# ===== STATIC METHODS ======
+# metody statyczne
+# - one nie przyjmują argumentu self, i nawet nie powinny
+# - metod statycznych używa się najcześciej w kontekście narzedzi, ktore sa w naszej klasie
+
+# https://www.rapidtables.com/convert/temperature/celsius-to-fahrenheit.html
+class TemperatureConverter:
+    @staticmethod
+    def celc_to_fahr(celcjusz):
+        return celcjusz * 1.8 + 32
+
+    @staticmethod
+    def fahr_to_celc(fahrenheit):
+        return (fahrenheit - 32) / 1.8
+
+
+wynik = TemperatureConverter.celc_to_fahr(35)
+print(wynik)
+
+wynik = TemperatureConverter.fahr_to_celc(104)
+print(wynik)
+
+
 
 
 
