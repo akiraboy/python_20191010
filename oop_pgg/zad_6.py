@@ -88,6 +88,15 @@ def test_mnozenia():
     v2 = v1 * 5
     assert v2.x == 5 and v2.y == 10
 
+def test_greater_than():
+    v1 = Vector(2, 3)
+    v2 = Vector(1, 1)
+    assert v1 > v2
 
-
-
+def test_sortowanie():
+    v1 = Vector(2, 3) # 3
+    v2 = Vector(1, 1) # 1
+    v3 = Vector(2, 2) # 2
+    wektory = [v1, v2, v3]
+    wektory.sort()
+    assert wektory == [v2, v3, v1]
