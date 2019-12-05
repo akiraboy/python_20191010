@@ -1,3 +1,14 @@
+class CashMachineAvailabilityError(Exception):
+    pass
+
+class WrongAmountError(Exception):
+    pass
+
+
+class NominalsNotAvailable(Exception):
+    pass
+
+
 class CashMachine:
     NOMINALS = [500, 200, 100, 50, 20, 10] # class attribute
 
@@ -18,9 +29,9 @@ class CashMachine:
 
     def withdraw_money(self, amount):
         if not self.is_available:
-            raise ValueError('Cash machine is not available')
+            raise CashMachineAvailabilityError("Cash machine is not available")
         if amount % min(self._banknotes) != 0:
-            raise ValueError('Unable to withdraw money.')
+            raise WrongAmountError('Unable to withdraw money.')
 
         # sortujemy banknoty
         self._banknotes.sort(reverse=True)
@@ -36,7 +47,7 @@ class CashMachine:
                 self._banknotes.remove(banknote)
             return withdrawal
         else:
-            return []
+            raise NominalsNotAvailable()
 
 
 import pytest
@@ -69,7 +80,7 @@ def test_put_money():
 
 def test_withdraw_money_from_empty():
     cash_machine = CashMachine()
-    with pytest.raises(ValueError):
+    with pytest.raises(CashMachineAvailabilityError):
         cash_machine.withdraw_money(150)
 
 def test_withdraw_money():
@@ -80,13 +91,14 @@ def test_withdraw_money():
 def test_withdraw_money_impossible():
     cash_machine = CashMachine()
     cash_machine.put_money([200, 50])
-    assert cash_machine.withdraw_money(100) == []
+    with pytest.raises(NominalsNotAvailable):
+        cash_machine.withdraw_money(100)
 
 def test_withdraw_money_2times_impossible():
     cash_machine = CashMachine()
     cash_machine.put_money([200, 100, 100, 50])
     assert cash_machine.withdraw_money(150) == [100, 50]
-    with pytest.raises(ValueError):
+    with pytest.raises(WrongAmountError):
         cash_machine.withdraw_money(150)
 
 def test_withdraw_money_2times_possible():
@@ -103,12 +115,12 @@ def test_withdraw_money_all_banknotes():
 def test_withdraw_money_put_back_if_impossible():
     cash_machine = CashMachine()
     cash_machine.put_money([200, 100, 100, 50])
-    cash_machine.withdraw_money(550)
-    assert cash_machine.withdraw_money(450) == [200, 100, 100, 50]
+    with pytest.raises(NominalsNotAvailable):
+        cash_machine.withdraw_money(550)
 
 def test_amount_unable_to_withdraw():
     cm = CashMachine()
     cm.put_money([200, 100, 100, 50, 50, 50])
-    with pytest.raises(ValueError):
+    with pytest.raises(WrongAmountError):
         cm.withdraw_money(165)
 
