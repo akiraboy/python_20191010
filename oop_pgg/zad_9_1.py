@@ -43,13 +43,14 @@ class Basket:
             print(f'{product.name} ({product.id}), cena: {product.price:.2f} x {quantity}')
         print(f'W sumie: {self.count_total_price():.2f}')
 
-    @staticmethod
-    def with_products(products):
-        basket = Basket()
-        for product in products:
-            basket.add_product(product, 1)
 
-        return basket
+
+def with_products(products):
+    basket = Basket()
+    for product in products:
+        basket.add_product(product, 1)
+
+    return basket
 
 def test_with_products():
     produkty = [
@@ -58,7 +59,7 @@ def test_with_products():
         Product(2, 'Gruszka', 12),
     ]
 
-    koszyk = Basket.with_products(produkty)
+    koszyk = with_products(produkty)
 
     assert koszyk.count_total_price() == 16
     assert len(koszyk._items) == 2

@@ -18,7 +18,7 @@ class Basket:
     def __init__(self):
         self._items = dict()
 
-    def add_product(self, product: Product, quantity: int):
+    def add_product(self, product: Product, quantity: int = 1):
         if not isinstance(product, Product):
             raise TypeError('product has to be instance of Product')
 
@@ -43,12 +43,11 @@ class Basket:
             print(f'{product.name} ({product.id}), cena: {product.price:.2f} x {quantity}')
         print(f'W sumie: {self.count_total_price():.2f}')
 
-    @staticmethod
-    def with_products(products):
-        basket = Basket()
+    @classmethod
+    def with_products(cls, products):
+        basket = cls()
         for product in products:
-            basket.add_product(product, 1)
-
+            basket.add_product(product)
         return basket
 
 def test_with_products():
