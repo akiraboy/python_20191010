@@ -9,6 +9,9 @@ class NominalsNotAvailable(Exception):
     pass
 
 
+class CashMachineFullError(Exception):
+    pass
+
 class CashMachine:
     NOMINALS = [500, 200, 100, 50, 20, 10] # class attribute
 
@@ -16,10 +19,11 @@ class CashMachine:
         self._banknotes = []
 
     def put_money(self, banknotes):
-        valid_banknotes = self._filter_valid_banknotes(banknotes)
+        valid_banknotes = CashMachine._filter_valid_banknotes(banknotes)
         self._banknotes.extend(valid_banknotes) # dodaje banknoty zwalidowane do listy banknotów w bankomacie
 
-    def _filter_valid_banknotes(self, banknotes):
+    @staticmethod
+    def _filter_valid_banknotes(banknotes):
         valid_banknotes = [el for el in banknotes if el in CashMachine.NOMINALS]
         return valid_banknotes
 
@@ -48,6 +52,22 @@ class CashMachine:
             return withdrawal
         else:
             raise NominalsNotAvailable()
+
+
+
+class CashMachineLimited(CashMachine):
+    def __init__(self, limit):
+        super().__init__()
+        self._limit = limit
+
+    def put_money(self, banknotes):
+        valid_banknotes = CashMachineLimited._filter_valid_banknotes(banknotes)
+
+        if len(self._banknotes) + len(valid_banknotes) <= self._limit:
+            self._banknotes.extend(valid_banknotes)
+        else:
+            # czy chcemy odrzucic, bo sie nie miesci, czy wlozyc tyle ile sie da?
+            raise CashMachineFullError('Cash machine is full, cannot put this number of banknotes')
 
 
 import pytest
@@ -123,4 +143,10 @@ def test_amount_unable_to_withdraw():
     cm.put_money([200, 100, 100, 50, 50, 50])
     with pytest.raises(WrongAmountError):
         cm.withdraw_money(165)
+
+def test_overcapacity():
+    cm = CashMachineLimited(limit=5)
+    with pytest.raises(CashMachineFullError):
+        cm.put_money([100, 200, 100, 50, 50, 100])
+
 
