@@ -18,8 +18,16 @@ class Product:
         return self.get_info()
 
 
-p1 = Product('gruszka', 2)
-p2 = Product('japko', 5)
+class ProductPremium(Product):
+    def __init__(self, name, price):
+        self.id = ProductPremium._next_id
+        Product._next_id += 1
+
+        self.name = name
+        self.price = price
+
+p1 = Product('asd', 123)
+p2 = ProductPremium('qwe', 345)
 
 print(p1)
 print(p2)
