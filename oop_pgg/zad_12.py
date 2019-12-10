@@ -183,7 +183,19 @@ def test_add_discount():
 
     assert koszyk.count_total_price() == 16
 
+def test_add_discount_too_big():
+    pr1 = Product(1, "Jablka", 10)
+    pr2 = Product(2, "Morele", 20)
 
+    koszyk = Basket.with_products([pr1, pr2])
+
+    assert koszyk.count_total_price() == 30
+
+    vd1 = ValueDiscount(40)
+
+    koszyk.add_discount(vd1)
+
+    assert koszyk.count_total_price() == 0
 
 
 
