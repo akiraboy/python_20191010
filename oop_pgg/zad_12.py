@@ -163,3 +163,34 @@ def test_dodanie_produktu_dwa_razy():
 
     assert koszyk.count_total_price() == 26
 
+def test_add_discount():
+    pr1 = Product(1, "Jablka", 10)
+    pr2 = Product(2, "Morele", 20)
+
+    koszyk = Basket.with_products([pr1, pr2])
+
+    assert koszyk.count_total_price() == 30
+
+    vd1 = ValueDiscount(5)
+    vd2 = ValueDiscount(5)
+    pd1 = PercentageDiscount(10)
+    pd2 = PercentageDiscount(10)
+
+    koszyk.add_discount(vd1)
+    koszyk.add_discount(vd2)
+    koszyk.add_discount(pd1)
+    koszyk.add_discount(pd2)
+
+    assert koszyk.count_total_price() == 16
+
+
+
+
+
+
+
+
+
+
+
+
