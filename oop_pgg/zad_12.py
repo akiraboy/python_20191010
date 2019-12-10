@@ -1,3 +1,34 @@
+from abc import ABC, abstractmethod
+
+class Discount(ABC):
+    def __init__(self, amount):
+        self._amount = amount
+
+    @abstractmethod
+    def calculate(self, total_price):
+        pass
+
+    @abstractmethod
+    def __add__(self, other):
+        pass
+
+class ValueDiscount(Discount):
+    def calculate(self, total_price):
+        return total_price - self._amount
+
+    def __add__(self, other):
+        return ValueDiscount(self._amount + other._amount)
+
+class PercentageDiscount(Discount):
+    def calculate(self, total_price):
+        return total_price - total_price * self._amount / 100.0
+
+    def __add__(self, other):
+        return PercentageDiscount(self._amount + other._amount)
+
+
+
+
 class Product:
     def __init__(self, id, name, price):
         self.id = id
@@ -17,6 +48,10 @@ class Product:
 class Basket:
     def __init__(self):
         self._items = dict()
+        self._discounts = []
+
+    def add_discount(self, discount: Discount):
+        self._discounts.append(discount)
 
     def add_product(self, product: Product, quantity: int = 1):
         if not isinstance(product, Product):
@@ -35,7 +70,18 @@ class Basket:
         return not self._items
 
     def count_total_price(self):
-        return sum( [ product.price * quantity for product, quantity in self._items.items() ] )
+        basket_total_price = sum( [ product.price * quantity for product, quantity in self._items.items() ] )
+
+        sum_vd = ValueDiscount(0)
+        sum_pd = PercentageDiscount(0)
+
+        for discount in self._discounts:
+            if isinstance(discount, ValueDiscount):
+                sum_vd += discount
+            elif isinstance(discount, PercentageDiscount):
+                sum_pd += discount
+
+        return basket_total_price
 
     def generate_report(self):
         print("Produkty w koszyku:")
