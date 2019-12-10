@@ -456,3 +456,64 @@ class Employee:
 jan = Employee.office_employer('Jan', 'Nowak')
 print(jan)
 print(jan.rate)
+
+print("="*60)
+# ==== ABSTRAKCJA =====
+# modul ABC (Abstract Base Class)
+# żeby oznaczyć klasę jako abstrakcyjną, to ta klasa musi dziedziczyc po ABC
+# te metody w klasie abstrakcyjnej, co do ktorych nie wiemy jak maja dzialac
+# oznaczamy dekoratorem @abstractmethod
+
+from abc import ABC, abstractmethod
+
+class Zwierze(ABC):
+    def __init__(self, imie):
+        self.imie = imie
+
+    def przedstaw_sie(self):
+        print(f'Jestem {self.imie}')
+
+    @abstractmethod
+    def wydaj_dzwiek(self):
+        pass
+
+class Pies(Zwierze):
+    def wydaj_dzwiek(self):
+        print('Hau hau')
+
+class Kot(Zwierze):
+    def wydaj_dzwiek(self):
+        print("Miau miau")
+
+class Ryba(Zwierze):
+    def wydaj_dzwiek(self):
+        print("Bul bul")
+
+
+# zwierze = Zwierze('Lucyfer')
+burek = Pies('Burek')
+mruczek = Kot('Mruczek')
+nemo = Ryba('Nemo')
+
+# zwierze.przedstaw_sie()
+# zwierze.wydaj_dzwiek()
+burek.przedstaw_sie()
+burek.wydaj_dzwiek()
+mruczek.przedstaw_sie()
+mruczek.wydaj_dzwiek()
+nemo.przedstaw_sie()
+nemo.wydaj_dzwiek()
+
+
+print('='*60)
+
+zwierzyniec = [burek, mruczek, nemo]
+
+for zwierzak in zwierzyniec:
+    zwierzak.przedstaw_sie()
+    zwierzak.wydaj_dzwiek()
+
+
+
+
+
