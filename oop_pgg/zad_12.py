@@ -81,7 +81,15 @@ class Basket:
             elif isinstance(discount, PercentageDiscount):
                 sum_pd += discount
 
-        return basket_total_price
+        basket_total_price = sum_vd.calculate(basket_total_price)
+        basket_total_price = sum_pd.calculate(basket_total_price)
+
+        # if basket_total_price < 0:
+        #     return 0
+        # else:
+        #     return basket_total_price
+
+        return basket_total_price if basket_total_price >= 0 else 0
 
     def generate_report(self):
         print("Produkty w koszyku:")
