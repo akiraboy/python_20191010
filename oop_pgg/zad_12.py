@@ -1,14 +1,15 @@
-from abc import ABC, abstractmethod
+from abc import abstractclassmethod
 
 class Discount(ABC):
     def __init__(self, amount):
         self._amount = amount
 
-    @abstractmethod
+
+    @abstractclassmethod
     def calculate(self, total_price):
         pass
 
-    @abstractmethod
+    @abstractclassmethod
     def __add__(self, other):
         pass
 
@@ -21,11 +22,9 @@ class ValueDiscount(Discount):
 
 class PercentageDiscount(Discount):
     def calculate(self, total_price):
-        return total_price - total_price * self._amount / 100.0
-
+        return total_price - total_price * (self._amount / 100.0)
     def __add__(self, other):
         return PercentageDiscount(self._amount + other._amount)
-
 
 
 
@@ -50,7 +49,7 @@ class Basket:
         self._items = dict()
         self._discounts = []
 
-    def add_discount(self, discount: Discount):
+    def add_discount(selfs, discount: Discount):
         self._discounts.append(discount)
 
     def add_product(self, product: Product, quantity: int = 1):
@@ -70,7 +69,7 @@ class Basket:
         return not self._items
 
     def count_total_price(self):
-        basket_total_price = sum( [ product.price * quantity for product, quantity in self._items.items() ] )
+        basket_totoal_price = sum( [ product.price * quantity for product, quantity in self._items.items() ] )
 
         sum_vd = ValueDiscount(0)
         sum_pd = PercentageDiscount(0)
@@ -81,15 +80,14 @@ class Basket:
             elif isinstance(discount, PercentageDiscount):
                 sum_pd += discount
 
-        basket_total_price = sum_vd.calculate(basket_total_price)
-        basket_total_price = sum_pd.calculate(basket_total_price)
+        basket_totoal_price = sum_vd.calculate(basket_totoal_price)
+        basket_totoal_price = sum_pd.calculate(basket_totoal_price)
 
-        # if basket_total_price < 0:
-        #     return 0
-        # else:
-        #     return basket_total_price
+        if basket_totoal_price < 0:
+            return 0
+        else:
+            return basket_totoal_price
 
-        return basket_total_price if basket_total_price >= 0 else 0
 
     def generate_report(self):
         print("Produkty w koszyku:")
@@ -162,47 +160,4 @@ def test_dodanie_produktu_dwa_razy():
     koszyk.add_product(kalosze, 1)
 
     assert koszyk.count_total_price() == 26
-
-def test_add_discount():
-    pr1 = Product(1, "Jablka", 10)
-    pr2 = Product(2, "Morele", 20)
-
-    koszyk = Basket.with_products([pr1, pr2])
-
-    assert koszyk.count_total_price() == 30
-
-    vd1 = ValueDiscount(5)
-    vd2 = ValueDiscount(5)
-    pd1 = PercentageDiscount(10)
-    pd2 = PercentageDiscount(10)
-
-    koszyk.add_discount(vd1)
-    koszyk.add_discount(vd2)
-    koszyk.add_discount(pd1)
-    koszyk.add_discount(pd2)
-
-    assert koszyk.count_total_price() == 16
-
-def test_add_discount_too_big():
-    pr1 = Product(1, "Jablka", 10)
-    pr2 = Product(2, "Morele", 20)
-
-    koszyk = Basket.with_products([pr1, pr2])
-
-    assert koszyk.count_total_price() == 30
-
-    vd1 = ValueDiscount(40)
-
-    koszyk.add_discount(vd1)
-
-    assert koszyk.count_total_price() == 0
-
-
-
-
-
-
-
-
-
 
